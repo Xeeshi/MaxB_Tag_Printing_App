@@ -1,0 +1,46 @@
+C:\Users\Zeeshan\source\repos\MaxB_Tag_Printing_App\MaxB_Tag_Printing_App\bin\Debug\MaxB_Tag_Printing_App.exe.config
+C:\Users\Zeeshan\source\repos\MaxB_Tag_Printing_App\MaxB_Tag_Printing_App\bin\Debug\MaxB_Tag_Printing_App.exe
+C:\Users\Zeeshan\source\repos\MaxB_Tag_Printing_App\MaxB_Tag_Printing_App\bin\Debug\MaxB_Tag_Printing_App.pdb
+C:\Users\Zeeshan\source\repos\MaxB_Tag_Printing_App\MaxB_Tag_Printing_App\obj\Debug\MaxB_Tag_Printing_App.csprojAssemblyReference.cache
+C:\Users\Zeeshan\source\repos\MaxB_Tag_Printing_App\MaxB_Tag_Printing_App\obj\Debug\MaxB_Tag_Printing_App.Form1.resources
+C:\Users\Zeeshan\source\repos\MaxB_Tag_Printing_App\MaxB_Tag_Printing_App\obj\Debug\MaxB_Tag_Printing_App.Properties.Resources.resources
+C:\Users\Zeeshan\source\repos\MaxB_Tag_Printing_App\MaxB_Tag_Printing_App\obj\Debug\MaxB_Tag_Printing_App.csproj.GenerateResource.cache
+C:\Users\Zeeshan\source\repos\MaxB_Tag_Printing_App\MaxB_Tag_Printing_App\obj\Debug\MaxB_Tag_Printing_App.csproj.CoreCompileInputs.cache
+C:\Users\Zeeshan\source\repos\MaxB_Tag_Printing_App\MaxB_Tag_Printing_App\obj\Debug\MaxB_Tag_Printing_App.exe
+C:\Users\Zeeshan\source\repos\MaxB_Tag_Printing_App\MaxB_Tag_Printing_App\obj\Debug\MaxB_Tag_Printing_App.pdb
+C:\Users\Zeeshan\source\repos\MaxB_Tag_Printing_App\MaxB_Tag_Printing_App\bin\Debug\Zen.Barcode.Core.dll
+C:\Users\Zeeshan\source\repos\MaxB_Tag_Printing_App\MaxB_Tag_Printing_App\obj\Debug\MaxB_Tag_Printing_App.csproj.CopyComplete
+C:\Users\admin\Documents\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App\bin\Debug\MaxB_Tag_Printing_App.exe.config
+C:\Users\admin\Documents\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App\bin\Debug\MaxB_Tag_Printing_App.exe
+C:\Users\admin\Documents\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App\bin\Debug\MaxB_Tag_Printing_App.pdb
+C:\Users\admin\Documents\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App\obj\Debug\MaxB_Tag_Printing_App.csprojAssemblyReference.cache
+C:\Users\admin\Documents\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App\obj\Debug\MaxB_Tag_Printing_App.Form1.resources
+C:\Users\admin\Documents\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App\obj\Debug\MaxB_Tag_Printing_App.Properties.Resources.resources
+C:\Users\admin\Documents\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App\obj\Debug\MaxB_Tag_Printing_App.csproj.GenerateResource.cache
+C:\Users\admin\Documents\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App\obj\Debug\MaxB_Tag_Printing_App.csproj.CoreCompileInputs.cache
+C:\Users\admin\Documents\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App\obj\Debug\MaxB_Tag_Printing_App.csproj.CopyComplete
+C:\Users\admin\Documents\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App\obj\Debug\MaxB_Tag_Printing_App.exe
+C:\Users\admin\Documents\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App\obj\Debug\MaxB_Tag_Printing_App.pdb
+C:\Users\Zeeshan\source\repos\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App\bin\Debug\MaxB_Tag_Printing_App.exe.config
+C:\Users\Zeeshan\source\repos\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App\bin\Debug\MaxB_Tag_Printing_App.exe
+C:\Users\Zeeshan\source\repos\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App\bin\Debug\MaxB_Tag_Printing_App.pdb
+C:\Users\Zeeshan\source\repos\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App\bin\Debug\Zen.Barcode.Core.dll
+C:\Users\Zeeshan\source\repos\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App\obj\Debug\MaxB_Tag_Printing_App.csprojAssemblyReference.cache
+C:\Users\Zeeshan\source\repos\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App\obj\Debug\MaxB_Tag_Printing_App.Form1.resources
+C:\Users\Zeeshan\source\repos\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App\obj\Debug\MaxB_Tag_Printing_App.Properties.Resources.resources
+C:\Users\Zeeshan\source\repos\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App\obj\Debug\MaxB_Tag_Printing_App.csproj.GenerateResource.cache
+C:\Users\Zeeshan\source\repos\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App\obj\Debug\MaxB_Tag_Printing_App.csproj.CoreCompileInputs.cache
+C:\Users\Zeeshan\source\repos\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App\obj\Debug\MaxB_Tag_Printing_App.csproj.CopyComplete
+C:\Users\Zeeshan\source\repos\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App\obj\Debug\MaxB_Tag_Printing_App.exe
+C:\Users\Zeeshan\source\repos\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App\obj\Debug\MaxB_Tag_Printing_App.pdb
+C:\Users\admin\source\repos\repos\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App\bin\Debug\MaxB_Tag_Printing_App.exe.config
+C:\Users\admin\source\repos\repos\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App\bin\Debug\MaxB_Tag_Printing_App.exe
+C:\Users\admin\source\repos\repos\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App\bin\Debug\MaxB_Tag_Printing_App.pdb
+C:\Users\admin\source\repos\repos\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App\obj\Debug\MaxB_Tag_Printing_App.csprojAssemblyReference.cache
+C:\Users\admin\source\repos\repos\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App\obj\Debug\MaxB_Tag_Printing_App.Form1.resources
+C:\Users\admin\source\repos\repos\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App\obj\Debug\MaxB_Tag_Printing_App.Properties.Resources.resources
+C:\Users\admin\source\repos\repos\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App\obj\Debug\MaxB_Tag_Printing_App.csproj.GenerateResource.cache
+C:\Users\admin\source\repos\repos\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App\obj\Debug\MaxB_Tag_Printing_App.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\repos\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App\obj\Debug\MaxB_Tag_Printing_App.csproj.CopyComplete
+C:\Users\admin\source\repos\repos\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App\obj\Debug\MaxB_Tag_Printing_App.exe
+C:\Users\admin\source\repos\repos\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App - Copy\MaxB_Tag_Printing_App\obj\Debug\MaxB_Tag_Printing_App.pdb
