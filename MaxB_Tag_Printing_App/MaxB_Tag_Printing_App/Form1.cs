@@ -79,7 +79,7 @@ namespace MaxB_Tag_Printing_App
 
         }
         private void DisplayRecords(string branchid)
-        { try { dataGridView1.DataSource = con.getDataTableFromDB("SELECT  [DateTime],pi.[ProductItemID],pi.LongName,[Status],[TagType] FROM [mbo].[TagRequest] tr Left Join ProductITEM pi on pi.[ProductItemID]=tr.ProductItemID where DateTime='"+DateTime.Now.ToString()+"' and Status=1 and BranchID='"+branchid+"' order by DateTime desc"); } catch { } }
+        { try { dataGridView1.DataSource = con.getDataTableFromDB("SELECT  [DateTime],pi.[ProductItemID],pi.LongName,[Status],[TagType] FROM [mbo].[TagRequest] tr Left Join ProductITEM pi on pi.[ProductItemID]=tr.ProductItemID where DateTime='"+DateTime.Now.ToString()+"' and Status=1 and BranchID='"+branchid+"' order by [DateTime] desc"); } catch { } }
         private void Button1_Click(object sender, EventArgs e)
         {
             AddLog("STARTED...!");
@@ -443,18 +443,18 @@ namespace MaxB_Tag_Printing_App
                                    
                                     WHTagPrint.DefaultPageSettings.PaperSize = new System.Drawing.Printing.PaperSize("custom", 400, 200);
                                     WHTagPrint.PrinterSettings.PrinterName = PrintercomboBox.Text;
-                                    //    WHTagPrint.Print();
-                                    printPreviewDialog1.Document = WHTagPrint;
-                                    printPreviewDialog1.ShowDialog();
+                                       WHTagPrint.Print();
+                                    //printPreviewDialog1.Document = WHTagPrint;
+                                    //printPreviewDialog1.ShowDialog();
                                 }
                                 else
                                 {
 
                                     ShelfPriceTagPrint.DefaultPageSettings.PaperSize = new System.Drawing.Printing.PaperSize("custom", 330, 150);
                                     ShelfPriceTagPrint.PrinterSettings.PrinterName = PrintercomboBox.Text;
-                                    // ShelfPriceTagPrint.Print();
-                                    printPreviewDialog1.Document = ShelfPriceTagPrint;
-                                    printPreviewDialog1.ShowDialog();
+                                     ShelfPriceTagPrint.Print();
+                                    //printPreviewDialog1.Document = ShelfPriceTagPrint;
+                                    //printPreviewDialog1.ShowDialog();
                                 }
 
                                 AddLog("Ended Printing Command");
