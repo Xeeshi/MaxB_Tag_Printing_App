@@ -437,9 +437,10 @@ namespace MaxB_Tag_Printing_App
                             AddLog("Fetching Records of " + tagModel.LongName);
                             if (validateApplyDate(tagModel.Hours_Difference))
                             {
+                                AddLog("Sending Printing Command of " + tagModel.LongName);
                                 if (tagModel.TagType.Trim() != "1")
                                 {
-                                    AddLog("Sending Printing Command of " + tagModel.LongName);
+                                   
                                     WHTagPrint.DefaultPageSettings.PaperSize = new System.Drawing.Printing.PaperSize("custom", 400, 200);
                                     WHTagPrint.PrinterSettings.PrinterName = PrintercomboBox.Text;
                                     //    WHTagPrint.Print();
