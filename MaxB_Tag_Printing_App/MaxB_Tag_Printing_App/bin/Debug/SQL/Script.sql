@@ -3,8 +3,9 @@ set @RequestPID=(
 SELECT TOP 01 Productitemid from [mbo].TagRequest WHERE status=0 and BranchID=@BranchID)
 
 SELECT Distinct 
- 
-		pi.ProductItemId
+         tr.TagRequestId
+		 ,tr.DateTime
+		,pi.ProductItemId
 		,pi.LongName
 		,pi.Barcode
 		,(Select SUBSTRING((SELECT ',' + pib.Barcode AS 'data()' FROM ProductItemBarcode pib where pib.ProductItemId = pi.ProductItemId FOR XML PATH('')), 0, 9999)) as AltBarcode
@@ -12,18 +13,16 @@ SELECT Distinct
 		,omoq.[MOQ]
 		,omoq.[MOQUnit]
 		,ic.L2
-		,(pi.SaleRate*tr.BCQty) as [SaleRate]
+		,pi.SaleRate
+		,tr.BCQty as BCQty
 		,pid.Facings
 		,TagType
 		,tr.BranchID
-		,bl.Quantity as BQty
-		
-		
-		
-
+		,tr.ApplyDate
+		,tr.ApplyPrice
+		,DATEDIFF(hh, tr.[DateTime],tr.ApplyDate) as Hours_Difference
 
 FROM ProductItem pi
-LEFT JOIN [mbo].BarcodeLookup bl on pi.Barcode=bl.Barcode
 LEFT JOIN mbo.PSOrderingMOQ omoq on omoq.ProductItemid=pi.productitemid
 LEFT JOIN [mbo].TagRequest tr on tr.ProductItemid=pi.productitemid
 LEFT JOIN [mbo].[PlanogramShelfDimensions] pid on pid.ProductItemid=pi.productitemid

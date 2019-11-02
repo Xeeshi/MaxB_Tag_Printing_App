@@ -9,6 +9,8 @@ namespace MaxB_Tag_Printing_App.Model
   public  class TagModel
     {
         public string L2 { get; set; }
+        public string TagRequestId { get; set; }
+   
         public string AltBarcode { get; set; }
         public string Barcode { get; set; }
         public string ProductItemID { get; set; }
@@ -20,8 +22,11 @@ namespace MaxB_Tag_Printing_App.Model
         public string BranchID { get; set; }
         public string SaleRate { get; set; }
         public string Facings { get; set; }
+        public decimal BCQty { get; set; }
+        public string Hours_Difference { get; set; }
+        public string ApplyPrice { get; set; }
 
-        public decimal BQty { get; set; }
+        
 
 
 

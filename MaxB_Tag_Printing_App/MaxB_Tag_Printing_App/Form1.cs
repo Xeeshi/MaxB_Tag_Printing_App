@@ -52,6 +52,18 @@ namespace MaxB_Tag_Printing_App
             }
             return value.ToString();
         }
+        private string ifNullReturnDefault_WhiteSpace(object value)
+        {
+            if (value == null)
+            {
+                return "";
+            }
+            else if (String.IsNullOrEmpty(value.ToString()))
+            {
+                return "";
+            }
+            return value.ToString();
+        }
 
         private string ifNullReturnDefault_Zero(object value)
         {
@@ -115,8 +127,13 @@ namespace MaxB_Tag_Printing_App
                         Facings= sdr["Facings"].ToString(),
                         TagType=sdr["TagType"].ToString(),
                         ProductItemID = sdr["ProductItemID"].ToString(),
-                        BQty =decimal.Parse(ifNullReturnDefault_Zero(sdr["BQty"])),
-
+                       
+                        ApplyPrice=ifNullReturnDefault_WhiteSpace(sdr["ApplyPrice"]),
+                        Hours_Difference=ifNullReturnDefault_WhiteSpace( sdr["Hours_Difference"]),
+                        BCQty=decimal.Parse(ifNullReturnDefault_One(sdr["BCQty"])),
+                       
+                        TagRequestId= sdr["TagRequestId"].ToString(),
+                        
 
                     };
 
@@ -244,6 +261,14 @@ namespace MaxB_Tag_Printing_App
                 p2.Width = 0;
                 p3.Width = 0;
                 e.Graphics.DrawRectangle(p, 5, 5 + Y_Adjust, 320, 140);
+                try {
+                    if (double.Parse(tagModel.Hours_Difference) >-1 && double.Parse(tagModel.Hours_Difference) < 13)
+                    {
+                
+                        e.Graphics.DrawString("***", new Font("Arial Narrow ", 12, FontStyle.Bold), Brushes.Black, 240 + X_Adjust, 29 + Y_Adjust);
+
+                    }
+                    } catch { }
 
 
               
@@ -289,19 +314,53 @@ namespace MaxB_Tag_Printing_App
 
                 }
                 catch (Exception ex) { AddLog(ex.Message); }
-             
 
-                e.Graphics.DrawString(Math.Round(decimal.Parse(tagModel.SaleRate)).ToString("G29"), new Font("Arial Narrow ", 25, FontStyle.Bold), Brushes.Black, 225 + X_Adjust, 70 + Y_Adjust);
-                  
 
-                
-                Zen.Barcode.Code128BarcodeDraw barcodeImg = Zen.Barcode.BarcodeDrawFactory.Code128WithChecksum;
-                Image img = barcodeImg.Draw(tagModel.ProductItemID+","+tagModel.BQty+","+Math.Round(Decimal.Parse(tagModel.SaleRate)), 180);
-                e.Graphics.DrawImage(img, 17 + X_Adjust, 63 + Y_Adjust, 180, 60);
-                UpdateProductRecord("Update [mbo].[TagRequest] Set [Status]='1' Where [BranchID]='"+tagModel.BranchID+ "' and [TagType]='" + tagModel.TagType + "' and ProductItemID='" + tagModel.ProductItemID + "'");
+                try
+                {
+                    if(decideWhichPriceToBePrint(tagModel.ApplyPrice,tagModel.Hours_Difference))
+                    { e.Graphics.DrawString(Math.Round(decimal.Parse(tagModel.ApplyPrice) * tagModel.BCQty).ToString("G29"), new Font("Arial Narrow ", 25, FontStyle.Bold), Brushes.Black, 225 + X_Adjust, 70 + Y_Adjust);
+                        Zen.Barcode.Code128BarcodeDraw barcodeImg = Zen.Barcode.BarcodeDrawFactory.Code128WithChecksum;
+                        Image img = barcodeImg.Draw(tagModel.ProductItemID + "," + tagModel.BCQty + "," + Math.Round(Decimal.Parse(tagModel.ApplyPrice)), 180);
+                        e.Graphics.DrawImage(img, 17 + X_Adjust, 63 + Y_Adjust, 180, 60);
+                    }else
+                    {
+                        e.Graphics.DrawString(Math.Round(decimal.Parse(tagModel.SaleRate) * tagModel.BCQty).ToString("G29"), new Font("Arial Narrow ", 25, FontStyle.Bold), Brushes.Black, 225 + X_Adjust, 70 + Y_Adjust);
+                        Zen.Barcode.Code128BarcodeDraw barcodeImg = Zen.Barcode.BarcodeDrawFactory.Code128WithChecksum;
+                        Image img = barcodeImg.Draw(tagModel.ProductItemID + "," + tagModel.BCQty + "," + Math.Round(Decimal.Parse(tagModel.SaleRate)), 180);
+                        e.Graphics.DrawImage(img, 17 + X_Adjust, 63 + Y_Adjust, 180, 60);
+                    }
+                }
+                catch { }
+
+
+                UpdateProductRecord("Update [mbo].[TagRequest] Set [Status]='1' Where [TagRequestId]='"+tagModel.TagRequestId+"'");
               
             } catch (Exception ex) { AddLog(ex.Message); }
             }
+
+        private bool decideWhichPriceToBePrint(object applyPrice, string hours_Difference)
+        {
+            try
+            {
+                if (hours_Difference == null)
+                { return false; }
+                else if (hours_Difference == "")
+                { return false; }
+                else if (double.Parse(hours_Difference.ToString()) > 12)
+                { return false; }
+                else if (double.Parse(hours_Difference.ToString()) < 13)
+                {
+                    try { double.Parse(tagModel.ApplyPrice);
+                        return true;
+                    }
+                    catch { return false; }
+                }
+                return true;
+            }
+            catch{ return false; }
+        }
+
         public bool UpdateProductRecord(string updateString)
         {
             try
@@ -375,28 +434,35 @@ namespace MaxB_Tag_Printing_App
                         {
                             tagModel = null;
                             tagModel = rec[i];
-                            AddLog("Sending Printing Command of " + tagModel.LongName);
-                            if (tagModel.TagType.Trim() != "1")
+                            AddLog("Fetching Records of " + tagModel.LongName);
+                            if (validateApplyDate(tagModel.Hours_Difference))
                             {
-                                WHTagPrint.DefaultPageSettings.PaperSize = new System.Drawing.Printing.PaperSize("custom", 400, 200);
-                                WHTagPrint.PrinterSettings.PrinterName = PrintercomboBox.Text;
-                            //    WHTagPrint.Print();
-                                printPreviewDialog1.Document = WHTagPrint;
-                                printPreviewDialog1.ShowDialog();
+                                if (tagModel.TagType.Trim() != "1")
+                                {
+                                    AddLog("Sending Printing Command of " + tagModel.LongName);
+                                    WHTagPrint.DefaultPageSettings.PaperSize = new System.Drawing.Printing.PaperSize("custom", 400, 200);
+                                    WHTagPrint.PrinterSettings.PrinterName = PrintercomboBox.Text;
+                                    //    WHTagPrint.Print();
+                                    printPreviewDialog1.Document = WHTagPrint;
+                                    printPreviewDialog1.ShowDialog();
+                                }
+                                else
+                                {
+
+                                    ShelfPriceTagPrint.DefaultPageSettings.PaperSize = new System.Drawing.Printing.PaperSize("custom", 330, 150);
+                                    ShelfPriceTagPrint.PrinterSettings.PrinterName = PrintercomboBox.Text;
+                                    // ShelfPriceTagPrint.Print();
+                                    printPreviewDialog1.Document = ShelfPriceTagPrint;
+                                    printPreviewDialog1.ShowDialog();
+                                }
+
+                                AddLog("Ended Printing Command");
                             }
                             else
                             {
-                                
-                                ShelfPriceTagPrint.DefaultPageSettings.PaperSize = new System.Drawing.Printing.PaperSize("custom", 330, 150);
-                                ShelfPriceTagPrint.PrinterSettings.PrinterName = PrintercomboBox.Text;
-                               // ShelfPriceTagPrint.Print();
-                                printPreviewDialog1.Document = ShelfPriceTagPrint;
-                                printPreviewDialog1.ShowDialog();
+                                AddLog("Apply Time is Greater Then 12 Hours");
                             }
-
-
-                            AddLog("Ended Printing Command");
-                            DisplayRecords(branchid[1].Trim());
+                                DisplayRecords(branchid[1].Trim());
                         }
                         catch (Exception ex) { AddLog(ex.Message); }
                     }
@@ -404,6 +470,27 @@ namespace MaxB_Tag_Printing_App
             }
             catch (Exception ex) { AddLog(ex.Message); }
         }
+
+        private bool validateApplyDate(object applyDate)
+        {
+            try
+            {
+                if(applyDate==null)
+                { return true; }
+                else if(applyDate.ToString()=="")
+                { return true; }
+               else if(double.Parse(applyDate.ToString())>12)
+                { return false; }
+                else if (double.Parse(applyDate.ToString()) < 13)
+                { return true; }
+                return true;
+                
+
+            }
+            catch
+            { return false; }
+        }
+
         private void AddLog(string text)
         { try
             {
