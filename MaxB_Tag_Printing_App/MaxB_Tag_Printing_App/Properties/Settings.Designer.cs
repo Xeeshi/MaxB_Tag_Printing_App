@@ -58,5 +58,17 @@ namespace MaxB_Tag_Printing_App.Properties {
                 this["prinername"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int valign {
+            get {
+                return ((int)(this["valign"]));
+            }
+            set {
+                this["valign"] = value;
+            }
+        }
     }
 }

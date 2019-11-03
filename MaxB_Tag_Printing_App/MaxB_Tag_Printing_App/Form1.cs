@@ -268,6 +268,7 @@ namespace MaxB_Tag_Printing_App
               
                 int X_Adjust = 5;
                 int Y_Adjust = 0;
+                try { Y_Adjust += int.Parse(VAligntextBox.Text); } catch { }
 
                 Pen p = new Pen(Color.Gray);
                 Pen p2 = new Pen(Color.Gray);
@@ -288,11 +289,11 @@ namespace MaxB_Tag_Printing_App
 
               
              //   e.Graphics.DrawRectangle(p, 215 + X_Adjust, 5+Y_Adjust, 110, 23);
-                e.Graphics.DrawString(L2, new Font("Arial Narrow ", 12, FontStyle.Bold), Brushes.Black, 280 + X_Adjust, 7 + Y_Adjust);
+                e.Graphics.DrawString(L2, new Font("Arial Narrow ", 12, FontStyle.Bold), Brushes.Black, 285 + X_Adjust, 7 + Y_Adjust);
                 e.Graphics.DrawString(DateTime.Now.ToString("MMdd"), new Font("Arial Narrow ", 12, FontStyle.Bold), Brushes.Black, 220 + X_Adjust, 7 + Y_Adjust);
 
               //  e.Graphics.DrawRectangle(p, 215 + X_Adjust, 28+Y_Adjust, 110, 20);
-                e.Graphics.DrawString(Target, new Font("Arial Narrow ", 12, FontStyle.Bold), Brushes.Black, 220 + X_Adjust, 29 + Y_Adjust);
+                e.Graphics.DrawString(Target, new Font("Arial Narrow ", 12, FontStyle.Bold), Brushes.Black, 237 + X_Adjust, 29 + Y_Adjust);
                // e.Graphics.DrawString("F:"+tagModel.Facings, new Font("Arial Narrow ", 12, FontStyle.Bold), Brushes.Black, 265 + X_Adjust, 29 + Y_Adjust);
 
                 // e.Graphics.DrawRectangle(p2, 210 + X_Adjust, 5 + Y_Adjust, 113, 140);
@@ -420,6 +421,12 @@ namespace MaxB_Tag_Printing_App
             catch { }
             try
             {
+                VAligntextBox.Text = Properties.Settings.Default.valign.ToString();
+
+            }
+            catch { }
+            try
+            {
                 PrintercomboBox.SelectedIndex = Properties.Settings.Default.prinername;
 
             }
@@ -451,7 +458,7 @@ namespace MaxB_Tag_Printing_App
                         {
                             tagModel = null;
                             tagModel = rec[i];
-                            AddLog("Fetching Records of " + tagModel.LongName);
+                         //   AddLog("Fetching Records of " + tagModel.LongName);
                             if (validateApplyDate(tagModel.Hours_Difference))
                             {
                                 AddLog("Sending Printing Command of " + tagModel.LongName);
@@ -476,10 +483,10 @@ namespace MaxB_Tag_Printing_App
 
                                 AddLog("Ended Printing Command");
                             }
-                            else
-                            {
-                                AddLog("Apply Time is Greater Then 12 Hours");
-                            }
+                            //else
+                            //{
+                            // //   AddLog("Apply Time is Greater Then 12 Hours");
+                            //}
                                 DisplayRecords(branchid.Trim());
                         }
                         catch (Exception ex) { AddLog(ex.Message); }
@@ -823,6 +830,16 @@ namespace MaxB_Tag_Printing_App
         private void Button1_Click_2(object sender, EventArgs e)
         {
 
+        }
+
+        private void VAligntextBox_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                Properties.Settings.Default.valign = int.Parse(VAligntextBox.Text);
+                Properties.Settings.Default.Save();
+            }
+            catch { }
         }
     }
 
