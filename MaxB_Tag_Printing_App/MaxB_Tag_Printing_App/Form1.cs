@@ -79,7 +79,7 @@ namespace MaxB_Tag_Printing_App
 
         }
         private void DisplayRecords(string branchid)
-        { try { dataGridView1.DataSource = con.getDataTableFromDB("SELECT  [DateTime],pi.[ProductItemID],pi.LongName,[Status],[TagType] FROM [mbo].[TagRequest] tr Left Join ProductITEM pi on pi.[ProductItemID]=tr.ProductItemID where DateTime='"+DateTime.Now.ToString()+"' and Status=1 and BranchID='"+branchid+"' order by [DateTime] desc"); } catch { } }
+        { try { dataGridView1.DataSource = con.getDataTableFromDB("SELECT TR.ProductItemID  [DateTime],pi.[ProductItemID],pi.LongName,[Status],[TagType],tr.ApplyDate,TR.ApplyPrice FROM [mbo].[TagRequest] tr Left Join ProductITEM pi on pi.[ProductItemID]=tr.ProductItemID where CONVERT(date,DateTime)=CONVERT(date,GETDATE()) and BranchID='"+branchid+"' order by [DateTime] desc"); } catch { } }
         private void Button1_Click(object sender, EventArgs e)
         {
             AddLog("STARTED...!");
