@@ -182,20 +182,20 @@ namespace MaxB_Tag_Printing_App
 
                 if(str.Length==(CSize+CSize))
                 {
-                    var temp2 = str.Substring(CSize, (str.Length - CSize - 2));
+                    var temp2 = str.Substring(CSize, (str.Length - CSize ));
                     tempList.Add(temp2);
                     return tempList;
                 }
                 else if(str.Length < (CSize + CSize))
                 {
-                    var temp2 = str.Substring(CSize, (str.Length - CSize - 2));
+                    var temp2 = str.Substring(CSize, (str.Length - CSize ));
                     tempList.Add(temp2);
                     return tempList;
 
                 }
                  if (str.Length > (CSize + CSize))
                 {
-                    var temp2 = str.Substring(CSize, (CSize - 1));
+                    var temp2 = str.Substring(CSize, (CSize ));
                     var len = str.Length - (CSize + CSize );
                     var temp3 = str.Substring(CSize + CSize,len);
                     tempList.Add(temp2);
@@ -268,7 +268,7 @@ namespace MaxB_Tag_Printing_App
               
                 int X_Adjust = 5;
                 int Y_Adjust = 0;
-                try { Y_Adjust += int.Parse(VAligntextBox.Text); } catch { }
+                try { Y_Adjust += getV_Align(); } catch { }
 
                 Pen p = new Pen(Color.Gray);
                 Pen p2 = new Pen(Color.Gray);
@@ -289,7 +289,7 @@ namespace MaxB_Tag_Printing_App
 
               
              //   e.Graphics.DrawRectangle(p, 215 + X_Adjust, 5+Y_Adjust, 110, 23);
-                e.Graphics.DrawString(L2, new Font("Arial Narrow ", 12, FontStyle.Bold), Brushes.Black, 285 + X_Adjust, 7 + Y_Adjust);
+                e.Graphics.DrawString(L2, new Font("Arial Narrow ", 12, FontStyle.Bold), Brushes.Black, 278 + X_Adjust, 7 + Y_Adjust);
                 e.Graphics.DrawString(DateTime.Now.ToString("MMdd"), new Font("Arial Narrow ", 12, FontStyle.Bold), Brushes.Black, 220 + X_Adjust, 7 + Y_Adjust);
 
               //  e.Graphics.DrawRectangle(p, 215 + X_Adjust, 28+Y_Adjust, 110, 20);
@@ -432,7 +432,25 @@ namespace MaxB_Tag_Printing_App
             }
             catch { }
         }
-
+        int outAge;
+        private int getV_Align()
+        {
+            if(VAligntextBox.Text=="")
+            {
+                return 0;
+            }
+            else
+            {
+                if(!int.TryParse(VAligntextBox.Text,out outAge))
+                {
+                    return 0;
+                }else
+                {
+                    return int.Parse(VAligntextBox.Text);
+                }
+            }
+            return int.Parse(VAligntextBox.Text);
+        }
         private void Button2_Click(object sender, EventArgs e)
         {
             AddLog("STOP...!");
@@ -474,7 +492,7 @@ namespace MaxB_Tag_Printing_App
                                 else
                                 {
 
-                                    ShelfPriceTagPrint.DefaultPageSettings.PaperSize = new System.Drawing.Printing.PaperSize("custom", 330, 150);
+                                    ShelfPriceTagPrint.DefaultPageSettings.PaperSize = new System.Drawing.Printing.PaperSize("custom", 330, getV_Align()+ 150);
                                     ShelfPriceTagPrint.PrinterSettings.PrinterName = PrintercomboBox.Text;
                                      ShelfPriceTagPrint.Print();
                                     //printPreviewDialog1.Document = ShelfPriceTagPrint;
@@ -547,7 +565,7 @@ namespace MaxB_Tag_Printing_App
                             AddLog("Sending Printing Command of " + tagModel.LongName);
                             if (tagModel.TagType.Trim() != "1")
                             {
-                                WHTagPrint.DefaultPageSettings.PaperSize = new System.Drawing.Printing.PaperSize("custom", 330, 150);
+                                WHTagPrint.DefaultPageSettings.PaperSize = new System.Drawing.Printing.PaperSize("custom", 330, getV_Align() +150);
                                 printPreviewDialog1.Document = WHTagPrint;
                                 printPreviewDialog1.ShowDialog();
                             }
@@ -739,7 +757,7 @@ namespace MaxB_Tag_Printing_App
                             else
                             {
 
-                                ShelfPriceTagPrint.DefaultPageSettings.PaperSize = new System.Drawing.Printing.PaperSize("custom", 330, 150);
+                                ShelfPriceTagPrint.DefaultPageSettings.PaperSize = new System.Drawing.Printing.PaperSize("custom", 330, 150+ getV_Align());
                                 printPreviewDialog1.Document = ShelfPriceTagPrint;
                                 printPreviewDialog1.ShowDialog();
                             }
@@ -836,7 +854,7 @@ namespace MaxB_Tag_Printing_App
         {
             try
             {
-                Properties.Settings.Default.valign = int.Parse(VAligntextBox.Text);
+                Properties.Settings.Default.valign = getV_Align();
                 Properties.Settings.Default.Save();
             }
             catch { }
