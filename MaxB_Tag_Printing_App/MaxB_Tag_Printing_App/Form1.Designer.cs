@@ -38,12 +38,13 @@
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.Timer1 = new System.Windows.Forms.Timer(this.components);
             this.WHTagPrint = new System.Drawing.Printing.PrintDocument();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.BranchcomboBox = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
             this.PrintercomboBox = new System.Windows.Forms.ComboBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -89,9 +90,9 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.richTextBox1);
-            this.groupBox1.Location = new System.Drawing.Point(19, 328);
+            this.groupBox1.Location = new System.Drawing.Point(15, 328);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(787, 91);
+            this.groupBox1.Size = new System.Drawing.Size(855, 91);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "LOGS";
@@ -100,7 +101,7 @@
             // 
             this.richTextBox1.Location = new System.Drawing.Point(6, 19);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(775, 63);
+            this.richTextBox1.Size = new System.Drawing.Size(843, 63);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
             // 
@@ -113,19 +114,14 @@
             // 
             this.WHTagPrint.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.WHTagPrint_PrintPage);
             // 
-            // comboBox1
+            // BranchcomboBox
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "B1 -- 3",
-            "B2 -- 5",
-            "B3 -- 8",
-            "JDC -- 1"});
-            this.comboBox1.Location = new System.Drawing.Point(284, 14);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(76, 21);
-            this.comboBox1.TabIndex = 4;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.ComboBox1_SelectedIndexChanged);
+            this.BranchcomboBox.FormattingEnabled = true;
+            this.BranchcomboBox.Location = new System.Drawing.Point(284, 14);
+            this.BranchcomboBox.Name = "BranchcomboBox";
+            this.BranchcomboBox.Size = new System.Drawing.Size(76, 21);
+            this.BranchcomboBox.TabIndex = 4;
+            this.BranchcomboBox.SelectedIndexChanged += new System.EventHandler(this.ComboBox1_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -155,12 +151,13 @@
             this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(25, 54);
+            this.dataGridView1.Location = new System.Drawing.Point(21, 53);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.Size = new System.Drawing.Size(781, 272);
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView1.Size = new System.Drawing.Size(843, 272);
             this.dataGridView1.TabIndex = 7;
             // 
             // label2
@@ -181,17 +178,29 @@
             this.PrintercomboBox.TabIndex = 8;
             this.PrintercomboBox.SelectedIndexChanged += new System.EventHandler(this.PrintercomboBox_SelectedIndexChanged);
             // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.LimeGreen;
+            this.button1.Location = new System.Drawing.Point(650, 14);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 10;
+            this.button1.Text = "Preview";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.Button1_Click_2);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(825, 431);
+            this.ClientSize = new System.Drawing.Size(886, 431);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.PrintercomboBox);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.BranchcomboBox);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.StopBtn);
             this.Controls.Add(this.StartBtn);
@@ -218,12 +227,13 @@
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Timer Timer1;
         private System.Drawing.Printing.PrintDocument WHTagPrint;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox BranchcomboBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox PrintercomboBox;
+        private System.Windows.Forms.Button button1;
     }
 }
 

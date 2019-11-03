@@ -79,10 +79,25 @@ namespace MaxB_Tag_Printing_App
 
         }
         private void DisplayRecords(string branchid)
-        { try { dataGridView1.DataSource = con.getDataTableFromDB("SELECT TR.ProductItemID  [DateTime],pi.[ProductItemID],pi.LongName,[Status],[TagType],tr.ApplyDate,TR.ApplyPrice FROM [mbo].[TagRequest] tr Left Join ProductITEM pi on pi.[ProductItemID]=tr.ProductItemID where CONVERT(date,DateTime)=CONVERT(date,GETDATE()) and BranchID='"+branchid+"' order by [DateTime] desc"); } catch { } }
+        { try {
+               
+                string script = File.ReadAllText("SQL//DisplayRecords.sql");
+
+                script = script.Replace("\r\n", " ");
+                script = script.Replace("\t", " ");
+                script = script.Replace("@BranchID", branchid);
+                dataGridView1.DataSource = con.getDataTableFromDB(script);
+            } catch { } }
         private void Button1_Click(object sender, EventArgs e)
         {
-            AddLog("STARTED...!");
+            try
+            {
+                Properties.Settings.Default.branch = BranchcomboBox.SelectedIndex;
+                Properties.Settings.Default.Save();
+            }
+            catch { }
+        
+        AddLog("STARTED...!");
             StartBtn.Enabled = false;
             StopBtn.Enabled = true ;
             Timer1.Start();
@@ -386,6 +401,7 @@ namespace MaxB_Tag_Printing_App
         {
             try
             {
+                BranchcomboBox.DataSource = Enum.GetValues(typeof(BranchEnum));
                 foreach (string printer in System.Drawing.Printing.PrinterSettings.InstalledPrinters)
                 {
                     if (!PrintercomboBox.Items.Contains(printer))
@@ -398,7 +414,7 @@ namespace MaxB_Tag_Printing_App
             catch { }
             try
             {
-              comboBox1.SelectedIndex = Properties.Settings.Default.branch;
+              BranchcomboBox.SelectedIndex = Properties.Settings.Default.branch;
                 
             }
             catch { }
@@ -423,9 +439,10 @@ namespace MaxB_Tag_Printing_App
         {
             try
             {
-                var branchid = comboBox1.Text.Split(new[] { "--" }, StringSplitOptions.None);
+                var Branch = (BranchEnum)Enum.Parse(typeof(BranchEnum), BranchcomboBox.SelectedItem.ToString());
+                string branchid = ((int)Branch).ToString();
 
-                var rec = getRecord(branchid[1].Trim());
+                var rec = getRecord(branchid.Trim());
                 if (rec != null)
                 {
                     for (int i = 0; i < rec.Count; i++)
@@ -463,7 +480,7 @@ namespace MaxB_Tag_Printing_App
                             {
                                 AddLog("Apply Time is Greater Then 12 Hours");
                             }
-                                DisplayRecords(branchid[1].Trim());
+                                DisplayRecords(branchid.Trim());
                         }
                         catch (Exception ex) { AddLog(ex.Message); }
                     }
@@ -509,7 +526,7 @@ namespace MaxB_Tag_Printing_App
         {
             try
             {
-                var branchid = comboBox1.Text.Split(new[] { "--" }, StringSplitOptions.None);
+                var branchid = BranchcomboBox.Text.Split(new[] { "--" }, StringSplitOptions.None);
 
                 var rec = getRecord(branchid[1].Trim());
                 if (rec != null)
@@ -551,13 +568,7 @@ namespace MaxB_Tag_Printing_App
 
         private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            try
-            {
-                Properties.Settings.Default.branch = comboBox1.SelectedIndex;
-                Properties.Settings.Default.Save();
-            }
-            catch { }
-            }
+        }
 
         private void PrintPreviewDialog1_Load_1(object sender, EventArgs e)
         {
@@ -681,8 +692,7 @@ namespace MaxB_Tag_Printing_App
                 //    e.Graphics.DrawString("L2", new Font("Arial Narrow ", 9, FontStyle.Bold), Brushes.Black, 30 + X_Adjust, 172 + Y_Adjust);
                 //          e.Graphics.DrawString("L3", new Font("Arial Narrow ", 9, FontStyle.Bold), Brushes.Black, 150 + X_Adjust, 172 + Y_Adjust);
 
-                UpdateProductRecord("Update [mbo].[TagRequest] Set [Status]='1' Where [BranchID]='" + tagModel.BranchID + "' and [TagType]='"+tagModel.TagType+"' and ProductItemID='" + tagModel.ProductItemID + "'");
-
+                UpdateProductRecord("Update [mbo].[TagRequest] Set [Status]='1' Where [TagRequestId]='" + tagModel.TagRequestId + "'");
             }
             catch (Exception ex)
             { MessageBox.Show(ex.Message); }
@@ -692,10 +702,20 @@ namespace MaxB_Tag_Printing_App
         {
             try
             {
-                var branchid = comboBox1.Text.Split(new[] { "--" }, StringSplitOptions.None);
-                if(tagModel==null)
+                int selectedrowindex = dataGridView1.SelectedCells[0].RowIndex;
+
+                DataGridViewRow selectedRow = dataGridView1.Rows[selectedrowindex];
+
+                string TID = Convert.ToString(selectedRow.Cells["TagRequestId"].Value);
+              if(String.IsNullOrWhiteSpace(TID))
+
+                {  MessageBox.Show("There is no Item to Print");
+                    return; }
+                tagModel = null;
+                tagModel = getRecordByRequestID(TID);
+                if (tagModel==null)
                 {
-                    MessageBox.Show("There is No Recent Item");
+                    MessageBox.Show("There is no Item to Print");
                     return;
                 }
              
@@ -726,6 +746,70 @@ namespace MaxB_Tag_Printing_App
             catch (Exception ex) { AddLog(ex.Message); }
         }
 
+        private TagModel getRecordByRequestID(string tID)
+        {
+            try
+            {
+               TagModel tm = new TagModel();
+                if (con.con.State == ConnectionState.Open)
+                { con.con.Close(); }
+                con.con.Open();
+                string qot = "'";
+                System.Data.SqlClient.SqlDataReader sdr;
+                string script = File.ReadAllText("SQL/Script_TRID.sql");
+
+                script = script.Replace("\r\n", " ");
+                script = script.Replace("\t", " ");
+                script = script.Replace("@TRID", tID);
+                SqlCommand cmd = new SqlCommand(script, con.con);
+
+
+                sdr = cmd.ExecuteReader();
+                //  DisplayStateMessage("Loading Data Into Grid");
+                while (sdr.Read())
+                {
+                    TagModel pmt = new TagModel()
+                    {
+                        LongName = sdr["LongName"].ToString(),
+                        AltBarcode = sdr["AltBarcode"].ToString(),
+                        MOQ = ifNullReturnDefault_One(sdr["MOQ"]),
+                        MOQUnit = ifNullReturnDefaultMOQ(sdr["MOQUnit"]),
+                        Barcode = sdr["Barcode"].ToString(),
+
+                        Target = ifNullReturnDefault_Zero(sdr["MaxTarget"]),
+                        L2 = sdr["L2"].ToString(),
+                        BranchID = sdr["BranchID"].ToString(),
+                        SaleRate = sdr["SaleRate"].ToString(),
+                        Facings = sdr["Facings"].ToString(),
+                        TagType = sdr["TagType"].ToString(),
+                        ProductItemID = sdr["ProductItemID"].ToString(),
+                        
+                        ApplyPrice = ifNullReturnDefault_WhiteSpace(sdr["ApplyPrice"]),
+                        Hours_Difference = ifNullReturnDefault_WhiteSpace(sdr["Hours_Difference"]),
+                        BCQty = decimal.Parse(ifNullReturnDefault_One(sdr["BCQty"])),
+
+                        TagRequestId = sdr["TagRequestId"].ToString(),
+
+
+                    };
+
+
+
+                    tm = pmt;
+
+                }
+
+
+                con.con.Close();
+                return tm;
+            }
+            catch (Exception ex)
+            {
+                AddLog(ex.Message); ;
+                return null;
+            }
+        }
+
         private void PrintercomboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -735,7 +819,11 @@ namespace MaxB_Tag_Printing_App
             }
             catch { }
         }
-    
+
+        private void Button1_Click_2(object sender, EventArgs e)
+        {
+
+        }
     }
 
 }
